@@ -22,6 +22,7 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
       port: Number(env.FRONTEND_PORT || 5317),
       strictPort: true,
+      allowedHosts: ['.trycloudflare.com', ...(env.VITE_ALLOWED_HOSTS ? env.VITE_ALLOWED_HOSTS.split(',') : [])],
       proxy: {
         '/api': { target: apiTarget, changeOrigin: true },
       },
