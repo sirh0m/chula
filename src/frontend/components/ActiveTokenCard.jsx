@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useNow } from '@/hooks/useNow';
 import { directionsUrl, distanceKm, formatDay, formatDistance, formatUgx, formatWindow, pickupState } from '@/lib/format';
+import { TILE_ATTRIBUTION, TILE_URL } from '@/lib/map';
 import { cn } from '@/lib/utils';
 
 const storeIcon = L.divIcon({ className: 'chula-marker', html: '<div class="chula-store-pin"></div>', iconSize: [0, 0] });
@@ -34,13 +35,12 @@ function DirectionsMap({ merchant, userPosition }) {
       zoom={15}
       bounds={bounds ?? undefined}
       zoomControl={false}
-      attributionControl={false}
       scrollWheelZoom={false}
       dragging={false}
       doubleClickZoom={false}
       className="h-full w-full"
     >
-      <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" subdomains="abcd" />
+      <TileLayer url={TILE_URL} attribution={TILE_ATTRIBUTION} />
       <Marker position={store} icon={storeIcon} interactive={false} />
       {userPosition && (
         <>

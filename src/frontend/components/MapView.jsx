@@ -3,6 +3,7 @@ import L from 'leaflet';
 import { MapContainer, Marker, Popup, TileLayer, ZoomControl, useMap } from 'react-leaflet';
 import { LocateFixed } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { TILE_ATTRIBUTION, TILE_URL } from '@/lib/map';
 import { KAMPALA_CENTER, discountPercent, formatShortUgx, formatUgx, formatWindow } from '@/lib/format';
 import { cn } from '@/lib/utils';
 
@@ -103,12 +104,7 @@ export default function MapView({ bags, selectedId, onSelect, onReserve, userPos
   return (
     <div className={cn('relative isolate overflow-hidden', className)}>
       <MapContainer center={KAMPALA_CENTER} zoom={13} zoomControl={false} className="h-full w-full" scrollWheelZoom>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-          subdomains="abcd"
-          maxZoom={19}
-        />
+        <TileLayer attribution={TILE_ATTRIBUTION} url={TILE_URL} maxZoom={19} />
         <ZoomControl position="bottomright" />
         <MapController placed={placed} selectedId={selectedId} userPosition={userPosition} />
         {placed.map(({ bag, position }) => (

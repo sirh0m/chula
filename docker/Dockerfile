@@ -48,9 +48,13 @@ COPY src/frontend ./src/frontend
 ARG VITE_SUPABASE_URL=""
 ARG VITE_SUPABASE_ANON_KEY=""
 ARG VITE_API_URL=""
+ARG VITE_MAP_TILE_URL=""
+ARG VITE_MAP_TILE_ATTRIBUTION=""
 ENV VITE_SUPABASE_URL=${VITE_SUPABASE_URL} \
     VITE_SUPABASE_ANON_KEY=${VITE_SUPABASE_ANON_KEY} \
-    VITE_API_URL=${VITE_API_URL}
+    VITE_API_URL=${VITE_API_URL} \
+    VITE_MAP_TILE_URL=${VITE_MAP_TILE_URL} \
+    VITE_MAP_TILE_ATTRIBUTION=${VITE_MAP_TILE_ATTRIBUTION}
 RUN npm run build --workspace=@chula/frontend
 
 # ---------------------------------------------------------------------

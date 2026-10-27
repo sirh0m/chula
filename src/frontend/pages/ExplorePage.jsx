@@ -87,7 +87,7 @@ export default function ExplorePage() {
   };
 
   return (
-    <div className="mx-auto flex max-w-[1600px] flex-col lg:grid lg:h-[calc(100dvh-4rem)] lg:grid-cols-[minmax(380px,460px)_1fr]">
+    <div className="mx-auto flex w-full max-w-[1600px] flex-col lg:grid lg:h-[calc(100dvh-4rem)] lg:grid-cols-[minmax(380px,460px)_1fr]">
       <MapView
         bags={mapBags}
         selectedId={selectedId}
