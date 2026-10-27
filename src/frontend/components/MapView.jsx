@@ -68,7 +68,7 @@ function BagPopup({ bag, onReserve }) {
         {bag.merchant.name} · {bag.merchant.district}
       </p>
       <p className="mt-0.5 text-[15px] leading-snug font-bold text-foreground">{bag.title}</p>
-      <div className="mt-2 flex items-baseline gap-2">
+      <div className="mt-2 flex items-baseline gap-2 whitespace-nowrap">
         <span className="text-base font-extrabold text-primary">{formatUgx(bag.discount_price)}</span>
         <span className="text-xs text-muted-foreground line-through">{formatUgx(bag.original_price)}</span>
         {off > 0 && <span className="ml-auto rounded-full bg-accent/40 px-1.5 text-[11px] font-bold text-accent-foreground">-{off}%</span>}
