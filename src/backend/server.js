@@ -136,6 +136,25 @@ export function startServer(overrides = {}) {
     });
   });
 
+  server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+      logger.error(
+        `Port ${config.port} is already in use. Another Chula API is probably running: stop it, or set PORT to a different value.`,
+      );
+    } else {
+      logger.error('API server failed to start', { error: error.message });
+    }
+    process.exit(1);
+  });
+
+  server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+      logger.error(`Port ${config.port} is already in use. Stop the other process (npm run stop) or set PORT.`);
+      process.exit(1);
+    }
+    throw error;
+  });
+
   const housekeeping = setInterval(async () => {
     try {
       const result = await store.runHousekeeping({ pendingTimeoutMinutes: config.pendingOrderTimeoutMinutes });

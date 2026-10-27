@@ -37,6 +37,8 @@ npm run dev
 - Web app: http://localhost:5317
 - API: http://localhost:4310/api/health
 
+`npm run dev` checks ports 4310 and 5317 first. If an earlier dev server is still holding them, it tells you so and exits. Run `npm run stop` to free both ports, then `npm run dev` again.
+
 With no keys configured, Chula runs in **demo mode**:
 
 | Integration | Without keys | With keys |

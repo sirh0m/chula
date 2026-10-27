@@ -11,6 +11,8 @@
     "node": ">=20.19"
   },
   "scripts": {
+    "predev": "node scripts/ports.mjs check",
+    "stop": "node scripts/ports.mjs stop",
     "dev": "concurrently -k -n api,web -c green,yellow \"npm:dev:backend\" \"npm:dev:frontend\"",
     "dev:backend": "npm run dev -w @chula/backend",
     "dev:frontend": "npm run dev -w @chula/frontend",
