@@ -1,0 +1,24 @@
+{
+  "name": "chula",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chula: food surplus marketplace for Kampala (Mobile Money checkout, pickup tokens, WhatsApp merchant agent)",
+  "workspaces": [
+    "src/backend",
+    "src/frontend"
+  ],
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c green,yellow \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "npm run dev -w @chula/backend",
+    "dev:frontend": "npm run dev -w @chula/frontend",
+    "build": "npm run build -w @chula/frontend",
+    "start": "npm start -w @chula/backend",
+    "test": "npm test -w @chula/backend"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}

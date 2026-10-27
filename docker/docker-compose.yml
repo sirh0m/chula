@@ -1,0 +1,47 @@
+# Run from the repository root:
+#   docker compose --env-file .env -f docker/docker-compose.yml up --build
+# Web app: http://localhost:8317   API: http://localhost:4310/api/health
+name: chula
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: backend
+    restart: unless-stopped
+    env_file:
+      - path: ../.env
+        required: false
+    environment:
+      NODE_ENV: production
+      PORT: 4310
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8317}
+      # Demo-friendly defaults so `up` works without any keys.
+      # Set both to "false" for a real deployment.
+      ALLOW_IN_MEMORY_STORE: ${ALLOW_IN_MEMORY_STORE:-true}
+      ALLOW_SIMULATED_PAYMENTS: ${ALLOW_SIMULATED_PAYMENTS:-true}
+      ENABLE_WHATSAPP_SIMULATOR: ${ENABLE_WHATSAPP_SIMULATOR:-false}
+    ports:
+      - "4310:4310"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:4310/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: frontend
+      args:
+        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL:-}
+        VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY:-}
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "8317:8080"

@@ -160,6 +160,11 @@ export function startServer(overrides = {}) {
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const config = loadConfig();
-  assertProductionConfig(config);
+  try {
+    assertProductionConfig(config);
+  } catch (error) {
+    console.error(error.message);
+    process.exit(1);
+  }
   startServer({ config });
 }
